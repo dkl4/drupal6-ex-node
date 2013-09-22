@@ -1,0 +1,5 @@
+; From Drupal 6 Developer Examples
+name = Node example
+description = Demonstrates how to define content types
+core = 6.x
+package = Example modules
