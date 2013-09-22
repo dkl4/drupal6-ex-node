@@ -38,3 +38,23 @@
  /**
   * Implements hook_menu().
   */
+function node_example_menu() {
+  $items['examples/node_example'] = array(
+    'title'           => 'Node Example',
+    'page callback'   => 'node_example_info',
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Page callback for path 'examples/node_example'
+ */
+function node_example_info() {
+  return t('The node example defines a new node type, "Example node type 1"'
+         . 'which can be created at !link.',
+         array('!link' => l(t('node/add/example-node-type-1'),
+               'node/add/example-node-type-1'))
+          );
+}
+
