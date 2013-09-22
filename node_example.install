@@ -21,6 +21,7 @@ function node_example_uninstall() {
 
 /**
  * Implements hook_schema().
+ * This is a DB-independent way to do a "CREATE TABLE" statement.
  */
 function node_example_schema() {
   $schema['node_example'] = array(
