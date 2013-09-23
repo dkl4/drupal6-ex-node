@@ -100,5 +100,29 @@ function node_example_node_info() {
   );
 }
 
+/**
+ * Implements hook_access().
+ *
+ * Node modules may implement node_access() to determine the operations
+ * users may perform on nodes. This example uses a very common access pattern.
+ */
+function node_example_access($op, $node, $account) {
+  if ($op == 'create') {
+    return user_access('create example content', $account);
+  }
+
+  if ($op == 'update') {
+    if (user_access('edit any example content', $account) || (user_access('edit own example content', $account) && ($account->uid == $node->uid))) {
+      return TRUE;
+    }
+  }
+
+  if ($op == 'delete') {
+    if (user_access('delete any example content', $account) || (user_access('delete own example content', $account) && ($account->uid == $node->uid))) {
+      return TRUE;
+    }
+  }
+}
+
 
 
