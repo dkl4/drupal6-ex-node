@@ -16,7 +16,7 @@ function node_example_install() {
  * Implements hook_uninstall().
  */
 function node_example_uninstall() {
-  drupal_uninstall_schems('node_example');
+  drupal_uninstall_schema('node_example');
 }
 
 /**
