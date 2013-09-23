@@ -141,5 +141,57 @@ function node_example_perm() {
   );
 }
 
+/**
+ * Implements hook_form().
+ *
+ * Now it's time to describe the form for collecting the information
+ * specific to this node type. This hook requires us to return an array
+ * with a subarray containing information for each element in the form.
+ *
+ * After adding this, you get a complete form with Body, Color, and Quantity
+ * fields at 'node/add/example-node-type-1' or 'node/41/edit'.
+ *
+ */
+function node_example_form(&$node, $form_state) {
+  // The site admin can decide if this node type has a title and body, and how
+  // the fields should be labeled. We need to load these settings so we can
+  // buidl the node form correctly.
+  $type = node_get_types('type', $node);
+
+  if ($type->has_title) {
+    $form['title'] = array(
+      '#type'          => 'textfield',
+      '#title'         => check_plain($type->title_label),
+      '#required'      => TRUE,
+      '#default_value' => $node->title,
+      '#weight'        => -5,
+    );
+  }
+
+  if ($type->has_body) {
+    // In Drupal 6, we use node_body_field() to get the body and filter
+    // elements. This replaces the old textares + filter_form() method of
+    // setting this up. It will also ensure the teaser splitter gets set up
+    // properly.
+    $form['body_field'] = node_body_field($node, $type->body_label, $type->min_word_count);
+  }
+
+  // Now we define the form elements specific to our node type.
+  $form['color'] = array(
+    '#type'          => 'textfield',
+    '#title'         => t('Color'),
+    '#default_value' => isset($node->color) ? $node->color : '',
+  );
+  $form['quantity'] = array(
+    '#type'          => 'textfield',
+    '#title'         => t('Quantity'),
+    '#default_value' => isset($node->quantity) ? $node->quantity : 0,
+    '#size'          => 10,
+    '#maxlength'     => 10,
+  );
+
+  return $form;
+}
+
 
 
