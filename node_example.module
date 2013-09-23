@@ -210,5 +210,15 @@ function node_example_validate($node, &$form) {
   }
 }
 
+/**
+ * Implements hook_insert().
+ *
+ * As a new node is inserted into the database, we need to do our own
+ * database inserts of our custom fields.
+ */
+function node_example_insert($node) {
+  db_query("INSERT INTO {node_example} (vid, nid, color, quantity) VALUES (%d, %d, '%s', %d)", $node->vid, $node->nid, $node->color, $node->quantity);
+}
+
 
 
