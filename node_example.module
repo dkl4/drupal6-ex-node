@@ -58,3 +58,47 @@ function node_example_info() {
           );
 }
 
+/**
+ * Implements hook_node_info()
+ *
+ * This is a required node hook. This function describes the nodes provided by
+ * this module.
+ *
+ * The required attributes are:
+ * - "name" provides a human readable name for the node,
+ * - "module" tells Drupal how the module's functions map to hooks (i.e., if the
+ *   module is node_example_foo, then node_example_foo_insert will be called
+ *   when inserting the node).
+ * - "description" provides a brief description of the node type, which is
+ *   shown when a user accesses the "Create content" page for that node type.
+ *
+ * The other, optional, attributes:
+ * - "has_title" boolean that indicates whether or not this node type has a
+ *   title field.
+ * - "title_label" is the label for the title field of this content type.
+ * - "has_body" boolean that indicates whether or not this node type has a
+ *   body field.
+ * - "body_label: the label fo rthe body field of this content type.
+ * - "min_word_count": the minimum number of words for the body field to be
+ *   considered valid for this content type.
+ *
+ * They array key in this example, "example_node_type_1", is the machine name of the
+ * node type and is stored in the {node}.type.  The node's type value cannot be
+ * changed through the admin interface.
+ */
+function node_example_node_info() {
+  return array(
+    'example_node_type_1' => array(
+      'name'       => t('Example node type 1'),
+      'module'     => 'node_example',
+      'description'=> t('An example node type with a few fields.'),
+      'has_title'  => TRUE,
+      'title_label'=> t('Example Node Type 1 Title'),
+      'has_body'   => TRUE,
+      'body_label' => t('Example Node Type 1 Body'),
+    ),
+  );
+}
+
+
+
