@@ -255,5 +255,14 @@ function node_example_nodeapi(&$node, $op, $teaser, $page) {
   }
 }
 
+/**
+ * Implements hook_delete().
+ * When a node is deleted, we need to remove all related records from our table.
+ */
+function node_example_delete($node) {
+  // Notice that we're matching all revision, by using the node's nid.
+  db_query('DELETE FROM {node_example} WHERE nid = %d', $node->nid);
+}
+
 
 
