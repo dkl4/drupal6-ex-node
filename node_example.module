@@ -264,5 +264,29 @@ function node_example_delete($node) {
   db_query('DELETE FROM {node_example} WHERE nid = %d', $node->nid);
 }
 
+/**
+ * Implements hook_load().
+ *
+ * Now that we've defined how to manage the node data in the database, we
+ * need to tell Drupal how to get the node_example-specific data (color, quantity)
+ * back out. This hook is called every time a node is loaded, and allows us
+ * to do some loading of our own.
+ *
+ * From the docs (https://api.drupal.org/api/drupal/developer!hooks!node.php/function/hook_load/6)
+ * the returned object will be merged in with the original node.  Note
+ * in the case of conflicts (ex. a new body from hook_load), the new
+ * property overwrites the old property.
+ *
+ * Note that now, with hook_load(), we're finally seeing 'default' values
+ * showing up in the node edit form for Color and Quantity.  Before we
+ * weren't seeing these in the edit node form because they weren't loaded.
+ */
+function node_example_load($node) {
+  // $additions is a stdClass object
+  $additions = db_fetch_object(db_query('SELECT color, quantity FROM {node_example} WHERE vid = %d', $node->vid));
+  //kpr($additions);
+  return $additions;
+}
+
 
 
