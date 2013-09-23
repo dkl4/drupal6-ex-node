@@ -155,7 +155,8 @@ function node_example_perm() {
 function node_example_form(&$node, $form_state) {
   // The site admin can decide if this node type has a title and body, and how
   // the fields should be labeled. We need to load these settings so we can
-  // buidl the node form correctly.
+  // build the node form correctly.
+  //kpr($node);
   $type = node_get_types('type', $node);
 
   if ($type->has_title) {
