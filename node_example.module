@@ -237,5 +237,23 @@ function node_example_update($node) {
   }
 }
 
+/**
+ * Implements hook_nodeapi().
+ *
+ * When a node REVISION is deleted, we need to remove the corresponding record
+ * from our table. Then only way to handle revision deletion is by implementing
+ * hook_nodeapi().
+ * You can observe this working by adding new revisions of type node_example
+ * and observing the node_example and node_revisions tables.
+ */
+function node_example_nodeapi(&$node, $op, $teaser, $page) {
+  switch ($op) {
+    case 'delete revision':
+      // Notice that we're matching a single revision based on the node's vid.
+      db_query('DELETE FROM {node_example} WHERE vid = %d', $node->vid);
+      break;
+  }
+}
+
 
 
