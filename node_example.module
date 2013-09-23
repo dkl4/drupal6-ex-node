@@ -308,4 +308,17 @@ function node_example_view($node, $teaser = FALES, $page = FALSE) {
 }
 
 
+/**
+ * Implements hook_theme().
+ *
+ * This lets us tell Drupal about our theme functions and their arguments.
+ */
+function node_example_theme() {
+  return array(
+    'node_example_order_info' => array(
+      'arguments' => array('node'),
+    ),
+  );
+}
+
 
