@@ -220,5 +220,22 @@ function node_example_insert($node) {
   db_query("INSERT INTO {node_example} (vid, nid, color, quantity) VALUES (%d, %d, '%s', %d)", $node->vid, $node->nid, $node->color, $node->quantity);
 }
 
+/**
+ * Implements hook_update().
+ *
+ * As an existing node is being updated in the database, we need to do our own
+ * database updates in our custom table.
+ */
+function node_example_update($node) {
+  // If this is a new node or we're adding a new revision...
+  if ($node->revision) {
+    node_example_inster($node);
+  }
+  else {
+    db_query("UPDATE {node_example} SET color = '%s', quantity = %d WHERE vid = %d",
+             $node->color, $node->quantity, $node->vid);
+  }
+}
+
 
 
