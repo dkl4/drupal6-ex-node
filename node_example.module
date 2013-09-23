@@ -193,5 +193,22 @@ function node_example_form(&$node, $form_state) {
   return $form;
 }
 
+/**
+ * Implements hook_validate().
+ *
+ * Our "quantity" field requires a number to be entered. This hook lets
+ * us ensure that the user entered an appropriate value before we try
+ * inserting anything into the database.
+ *
+ * Errors should be signaled with form_set_error().
+ */
+function node_example_validate($node, &$form) {
+  if ($node->quantity) {
+    if (!is_numeric($node->quantity)) {
+      form_set_error('quantity', t('The quantity must be a number.'));
+    }
+  }
+}
+
 
 
