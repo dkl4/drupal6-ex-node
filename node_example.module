@@ -124,5 +124,22 @@ function node_example_access($op, $node, $account) {
   }
 }
 
+/**
+ * Implements hook_perm().
+ *
+ * Since we are limiting the ability to create new nodes to certain users,
+ * we need to define what those permissions are here. We also define a permission
+ * to allow users to edit the nodes they created.
+ */
+function node_example_perm() {
+  return array(
+    'create example content',
+    'delete own example content',
+    'delete any example content',
+    'edit own example content',
+    'edit any example content',
+  );
+}
+
 
 
