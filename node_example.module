@@ -289,5 +289,23 @@ function node_example_load($node) {
   return $additions;
 }
 
+/**
+ * Implements hook_view().
+ *
+ * This is a typical implementation that simply runs the node text through
+ * the output filters via node_prepare().  That is, node_prepare()
+ * invokes check_markup().
+ */
+function node_example_view($node, $teaser = FALES, $page = FALSE) {
+  $node = node_prepare($node, $teaser);
+  // I really don't know where this 'myfield' came from or where it's used
+  // We need hook_theme() and a theme function to get theme('node_example_order_info' to work
+  $node->content['myfield'] = array(
+    '#value'  => theme('node_example_order_info', $node),
+    '#weight' => 1,
+  );
+  return $node;
+}
+
 
 
