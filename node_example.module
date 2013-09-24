@@ -321,4 +321,28 @@ function node_example_theme() {
   );
 }
 
+/**
+ * A custom theme function.
+ *
+ * By using this function to format our node-specific information, themes
+ * can override this presentation if they wish. We also wrap the default
+ * presentation in a CSS class that is prefixed by the module name. This
+ * way, style sheets can modify the output without requiring theme code.
+ *
+ * This theme is identified in hook_theme, and called in hook_view.
+ */
+function theme_node_example_order_info($node) {
+  $output  = '<div class="node_example_order_info">';
+  $output .= t('The order is for %quantity %color items.',
+               array('%quantity' => check_plain($node->quantity),
+                     '%color'    => check_plain($node->color))
+              );
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * @} End of "defgroup node_example".
+ */
+
 
